@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>La Esquina Gastronómica</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background: #f9f9f9;
+        }
+
+        footer {
+            background-color: #00704A;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+            flex-shrink: 0;
+        }
+        .navbar {
+            background-color: #00704A;
+            margin-bottom: 0;
+        }
+        .navbar-brand, .nav-link {
+            color: #fff;
+        }
+        
+        main {
+            flex: 1 0 auto;
+        }
+
+        .menu-item {
+            border-bottom: 1px solid #eee;
+            padding: 10px;
+        }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+
+    <script src="http://127.0.0.1:8080/gs-sdk.js"></script>
+
+    <!-- <script src="https://unpkg.com/@goshops/gs-sdk@latest"></script> -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            window.gsSDK = new window.GSSDK.default('ZLSWChC1X6WypnHb');
+            window.gsSDK.getContent('home-section');
+        });
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">La Esquina Gastronómica</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#home-section">Inicio</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Menú
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Café americano</a>
+                        <a class="dropdown-item" href="#">Cappuccino</a>
+                        <a class="dropdown-item" href="#">Espresso</a>
+                        <a class="dropdown-item" href="#">Té verde</a>
+                        <a class="dropdown-item" href="#">Ensalada cesar</a>
+                        <a class="dropdown-item" href="#">Sandwich de pollo</a>
+                        <a class="dropdown-item" href="#">Empanadas</a>
+                        <a class="dropdown-item" href="#">Tarta de queso</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact-section">Contacto</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home-section">
+    </section>
+
+    <section id="contact-section" class="p-5">
+        <div class="container">
+            <h2 class="text-center">Contacto</h2>
+            <p class="text-center">
+                Dirección: Calle Principal 123, Ciudad, País <br>
+                Teléfono: +12 345 678 910 <br>
+                Email: info@laesquinagastronomica.com
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2023 La Esquina Gastronómica</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
