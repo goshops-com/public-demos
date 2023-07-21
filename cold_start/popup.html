@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Popup</title>
+  </head>
+  <link rel="stylesheet" href="./popup.css" />
+  <body>
+    <div class="popup" id="popup">
+      <div class="popup-content">
+        <div class="popup-close" onclick="closePopup()">✕</div>
+        <h4 class="popup-head-h4">👋 Let's get to know each other</h4>
+        <div class="page-indicator-main">
+          <span class="page-indicator active"></span>
+          <span class="page-indicator"></span>
+        </div>
+        <h3>What are you interested in?</h3>
+        <div class="popup-flex" id="popupImagesContainer">
+        
+        </div>
+        <button class="done-btn" onclick="refreshPage()">
+            Done, Refresh Homepage
+        </button>
+      </div>
+    </div>
+    <script src="./popup.js"></script>
+  </body>
+</html>
