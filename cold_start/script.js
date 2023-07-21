@@ -16,6 +16,7 @@ async function reload(){
       items = await window.gsSDK.getRanking('affinity', {maxItems: 20});
     }else{
       items = await window.gsSDK.getItems({limit: 50, offset: 0, where: where});
+      items.resultData = await window.gsSDK.reRank('affinity', {affinityField: 'color_id,gender_id', items: items.resultData});
     }
     loadProducts(items)
   }
