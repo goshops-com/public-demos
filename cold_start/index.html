@@ -18,192 +18,37 @@
 
   <link href="assets/css/style.css" rel="stylesheet">
   <link href="assets/css/dark-theme.css" rel="stylesheet">
-
-  <style>
-    .text-red {
-        color: red;
-    }
-
-    .text-blue {
-        color: blue;
-    }
-
-    .text-yellow {
-        color: yellow;
-    }
-
-    .text-green {
-        color: green;
-    }
-
-    .text-info {
-        color: #17a2b8;
-    }
-
-    .text-black {
-        color: black;
-    }
-
-    .text-purple {
-        color: purple;
-    }
-
-    .text-orange {
-        color: orange;
-    }
-
-    .text-beige {
-        color: beige;
-    }
-
-    .text-bronze {
-        color: bronze;
-    }
-
-    .text-brown {
-        color: brown;
-    }
-
-    .text-burgundy {
-        color: #800020;
-    }
-
-    .text-charcoal {
-        color: #36454f;
-    }
-
-    .text-coffee {
-        color: #4b3621;
-    }
-
-    .text-cream {
-        color: #f5f5dc;
-    }
-
-    .text-fluorescent-green {
-        color: #ccff00;
-    }
-
-    .text-gold {
-        color: gold;
-    }
-
-    .bi-heart-fill {
-      color: red;
-    }
-  </style>
+  <link href="styles.css" rel="stylesheet">
+  
   <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/handlebars.min.js"></script>
 
   <script src="https://gs-sdk.pages.dev/gs-sdk.js"></script>
   
   <script src="./constants.js"></script>
   <script src="./templates.js"></script>
-
-  <link rel="stylesheet" href="./popup.css" />
+  <script src="./script.js"></script>
+  
   
   <script>
 
       window.categories = [];
       window.colors = [];
-
-        async function loadProducts(){
-
-          let where = {};
-          let filter = false;
-          if (window.categories.length > 0){
-            where['category'] =  { $in: window.categories }
-            filter = true;
-          }
-          if (window.colors.length > 0){
-            where['color_id'] =  { $in: window.colors } ;
-            filter = true;
-          }
-
-          let items;
-          if (!filter){
-            console.log('No filter, ranking');
-            items = await window.gsSDK.getRanking('affinity', {maxItems: 20});
-          }else{
-            items = await window.gsSDK.getItems({limit: 50, offset: 0, where: where});
-          }
-          
-          const products = items.resultData.map(item => ({
-            id: item.id,
-            image: item.image_url || "",
-            title: item.name || "",
-            description: "",
-            price: "$ " + item.price || "",
-            originalPrice: "",
-            discount: ""
-          }));
-
-          const productsData = {
-            products: products
-          };
-          var template = Handlebars.compile(templateProductList);
-          var renderedHtml = template(productsData);
-          var productContainer = document.getElementById("product-container");
-          productContainer.innerHTML = renderedHtml;
-        }
         
         document.addEventListener("DOMContentLoaded", async function() {
             window.gsSDK = await new window.GSSDK.default(CLIENT_ID);
-            await loadProducts();
+            await reload();
 
             window.gsSDK.on('loadProducts', async function(data){
-              console.log('Received event', data);
-              await loadProducts();
+              await reload();
             });
 
             const categories = await window.gsSDK.getFieldValues({field: 'category'});
-            const categoriesTemplate = Handlebars.compile(categoryTemplate);
-            const categoriesHtml = categoriesTemplate({ categories: categories });
-            document.getElementById('categories-container').innerHTML = categoriesHtml;
-
-            // Add click event listener to the checkboxes
-            const checkboxesCategory = document.querySelectorAll('.category-checkbox');
-            checkboxesCategory.forEach(function(checkbox) {
-              checkbox.addEventListener('click', async function() {
-                if (this.checked) {
-                  window.categories.push(this.value);
-                } else {
-                  const index = window.categories.indexOf(this.value);
-                  if (index !== -1) {
-                    window.categories.splice(index, 1);
-                  }
-                }
-                await loadProducts()
-              });
-            });
-
+            await loadCategories(categories);
 
             const colors = await window.gsSDK.getFieldValues({field: 'color_id'});
-            const processedColors = colors.map(color => ({
-              ...color,
-              lowercaseValue: color.fieldValue.toLowerCase()
-            }));
+            await loadColors(colors);
 
-
-            const colorsTemplate = Handlebars.compile(colorTemplate);
-            const colorsHtml = colorsTemplate({ colors: processedColors });
-            document.getElementById('colors-container').innerHTML = colorsHtml;
-
-            // Add click event listener to the checkboxes
-            const checkboxesColor = document.querySelectorAll('.color-checkbox');
-            checkboxesColor.forEach(function(checkbox) {
-              checkbox.addEventListener('click', async function() {
-                if (this.checked) {
-                  window.colors.push(this.value);
-                } else {
-                  const index = window.colors.indexOf(this.value);
-                  if (index !== -1) {
-                    window.colors.splice(index, 1);
-                  }
-                }
-                console.log(window.colors)
-                await loadProducts()
-              });
-            });
+            await window.gsSDK.getContent('popup');
 
         });
   </script>
@@ -213,7 +58,7 @@
 
 <body>
 
-  <div class="popup" id="popup">
+  <!-- <div class="popup" id="popup">
     <div class="popup-content">
       <div class="popup-close" onclick="closePopup()">✕</div>
       <h4 class="popup-head-h4">👋 Let's get to know each other</h4>
@@ -229,7 +74,7 @@
           Done, Refresh Homepage
       </button>
     </div>
-  </div>
+  </div> -->
 
   <!--page loader-->
   <div class="loader-wrapper">
@@ -604,18 +449,20 @@
    <script src="assets/js/main.js"></script>
    <script src="assets/js/loader.js"></script>
 
-   <script src="./popup.js"></script>
+   <!-- <script src="./popup.js"></script> -->
 
    <script>
-    function handleHeartClick(event, productId) {
+    async function handleHeartClick(event, productId) {
 
       console.log('like', productId)
       event.preventDefault();
       var heartIcon = event.currentTarget.querySelector("i.bi-heart");
       heartIcon.classList.toggle("bi-heart-fill");
       
-      // Use the productId as needed, such as making an API call
-      console.log("Product ID:", productId);
+      await window.gsSDK.addInteraction({
+        "event": "like",
+        "item": productId
+      });
     }
 
    </script>

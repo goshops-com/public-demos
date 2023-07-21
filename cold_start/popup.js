@@ -48,8 +48,7 @@ async function refreshPage() {
   closePopup();
 }
 
-function showImages(page) {
-  // const startIndex = page * imagesPerPage;
+function showImages() {
   const startIndex = 0;
   let endIndex = Math.min(startIndex + imagesPerPage, interests.length);
 
@@ -61,12 +60,6 @@ function showImages(page) {
 
     const popupImageElement = document.createElement("div");
     popupImageElement.classList.add("popup-images");
-    // if (previousPageSelectedImageIndex.includes(i)) {
-    //   popupImageElement.classList.add("checked");
-    // }
-    // if (selectedImageIndex === i) {
-    //   popupImageElement.classList.add("checked");
-    // }
 
     if (interest.checked){
       popupImageElement.classList.add("checked");
@@ -105,5 +98,4 @@ function showImages(page) {
   }
 }
 
-// Show the initial images on page load
 showImages(currentPage);
