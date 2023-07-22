@@ -60,25 +60,6 @@
 
 <body>
 
-  <!-- <div class="popup" id="popup">
-    <div class="popup-content">
-      <div class="popup-close" onclick="closePopup()">✕</div>
-      <h4 class="popup-head-h4">👋 Let's get to know each other</h4>
-      <div class="page-indicator-main">
-        <span class="page-indicator active"></span>
-        <span class="page-indicator"></span>
-      </div>
-      <h3>What are you interested in?</h3>
-      <div class="popup-flex" id="popupImagesContainer">
-      
-      </div>
-      <button class="done-btn" onclick="refreshPage()">
-          Done, Refresh Homepage
-      </button>
-    </div>
-  </div> -->
-
-  <!--page loader-->
   <div class="loader-wrapper">
    <div class="d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle">
      <div class="spinner-border text-dark" role="status">
@@ -86,9 +67,7 @@
      </div>
    </div>
  </div>
-<!--end loader-->
 
-  <!--start top header-->
   <header class="top-header">
     <nav class="navbar navbar-expand-xl w-100 navbar-dark container gap-3">
       <a class="navbar-brand d-none d-xl-inline" href="index.html"><img src="assets/logo.png" class="logo-img" alt=""></a>
@@ -136,14 +115,8 @@
       </ul>
     </nav>
   </header>
-  <!--end top header-->
 
-
-<!--start page content-->
 <div class="page-content">
-
-
-   <!--start breadcrumb-->
    <div class="py-4 border-bottom">
     <div class="container">
       <nav aria-label="breadcrumb">
@@ -155,10 +128,7 @@
       </nav>
     </div>
    </div>
-   <!--end breadcrumb-->
-
-
-   <!--start product grid-->
+   
    <section class="section-padding">
     <h5 class="mb-0 fw-bold d-none">Product Grid</h5>
     <div class="container">
@@ -231,211 +201,14 @@
               </div>
 
             <div id="product-container"></div>
-
-
-            <hr class="my-4">
-
-            <div id="paginationContainer"></div>
-
-            </div>
           </div>
        </div><!--end row-->
-
-       
     </div>
-  </section>
-   <!--start product details-->
-
-
-  
-  
+  </section> 
  </div>
-  <!--end page content-->
-
-
   <footer class="footer-strip text-center py-3 bg-section-2 border-top positon-absolute bottom-0">
     <p class="mb-0 text-muted">© 2022. www.example.com | All rights reserved.</p>
   </footer>
-
-
-<!--start cart-->
-<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-  <div class="offcanvas-header bg-section-2"> 
-    <h5 class="mb-0 fw-bold" id="offcanvasRightLabel">8 items in the cart</h5>
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-      <div class="cart-list">
-
-        <div class="d-flex align-items-center gap-3">
-          <div class="bottom-product-img">
-            <a href="product-details.html">
-              <img src="assets/images/new-arrival/01.webp" width="60" alt="">
-            </a>
-          </div>
-          <div class="">
-            <h6 class="mb-0 fw-light mb-1">Product Name</h6>
-            <p class="mb-0"><strong>1 X $59.00</strong>
-            </p>
-          </div>
-          <div class="ms-auto fs-5">
-            <a href="javascript:" class="link-dark"><i class="bi bi-trash"></i></a>
-          </div>
-        </div>
-        <hr>
-        <div class="d-flex align-items-center gap-3">
-          <div class="bottom-product-img">
-            <a href="product-details.html">
-              <img src="assets/images/new-arrival/02.webp" width="60" alt="">
-            </a>
-          </div>
-          <div class="">
-            <h6 class="mb-0 fw-light mb-1">Product Name</h6>
-            <p class="mb-0"><strong>1 X $59.00</strong>
-            </p>
-          </div>
-          <div class="ms-auto fs-5">
-            <a href="javascript:" class="link-dark"><i class="bi bi-trash"></i></a>
-          </div>
-        </div>
-        <hr>
-        <div class="d-flex align-items-center gap-3">
-          <div class="bottom-product-img">
-            <a href="product-details.html">
-              <img src="assets/images/new-arrival/03.webp" width="60" alt="">
-            </a>
-          </div>
-          <div class="">
-            <h6 class="mb-0 fw-light mb-1">Product Name</h6>
-            <p class="mb-0"><strong>1 X $59.00</strong>
-            </p>
-          </div>
-          <div class="ms-auto fs-5">
-            <a href="javascript:" class="link-dark"><i class="bi bi-trash"></i></a>
-          </div>
-        </div>
-        <hr>
-        <div class="d-flex align-items-center gap-3">
-          <div class="bottom-product-img">
-            <a href="product-details.html">
-              <img src="assets/images/new-arrival/04.webp" width="60" alt="">
-            </a>
-          </div>
-          <div class="">
-            <h6 class="mb-0 fw-light mb-1">Product Name</h6>
-            <p class="mb-0"><strong>1 X $59.00</strong>
-            </p>
-          </div>
-          <div class="ms-auto fs-5">
-            <a href="javascript:" class="link-dark"><i class="bi bi-trash"></i></a>
-          </div>
-        </div>
-        <hr>
-        <div class="d-flex align-items-center gap-3">
-          <div class="bottom-product-img">
-            <a href="product-details.html">
-              <img src="assets/images/new-arrival/05.webp" width="60" alt="">
-            </a>
-          </div>
-          <div class="">
-            <h6 class="mb-0 fw-light mb-1">Product Name</h6>
-            <p class="mb-0"><strong>1 X $59.00</strong>
-            </p>
-          </div>
-          <div class="ms-auto fs-5">
-            <a href="javascript:" class="link-dark"><i class="bi bi-trash"></i></a>
-          </div>
-        </div>
-        <hr>
-        <div class="d-flex align-items-center gap-3">
-          <div class="bottom-product-img">
-            <a href="product-details.html">
-              <img src="assets/images/new-arrival/06.webp" width="60" alt="">
-            </a>
-          </div>
-          <div class="">
-            <h6 class="mb-0 fw-light mb-1">Product Name</h6>
-            <p class="mb-0"><strong>1 X $59.00</strong>
-            </p>
-          </div>
-          <div class="ms-auto fs-5">
-            <a href="javascript:" class="link-dark"><i class="bi bi-trash"></i></a>
-          </div>
-        </div>
-        <hr>
-        <div class="d-flex align-items-center gap-3">
-          <div class="bottom-product-img">
-            <a href="product-details.html">
-              <img src="assets/images/new-arrival/07.webp" width="60" alt="">
-            </a>
-          </div>
-          <div class="">
-            <h6 class="mb-0 fw-light mb-1">Product Name</h6>
-            <p class="mb-0"><strong>1 X $59.00</strong>
-            </p>
-          </div>
-          <div class="ms-auto fs-5">
-            <a href="javascript:" class="link-dark"><i class="bi bi-trash"></i></a>
-          </div>
-        </div>
-        <hr>
-        <div class="d-flex align-items-center gap-3">
-          <div class="bottom-product-img">
-            <a href="product-details.html">
-              <img src="assets/images/new-arrival/08.webp" width="60" alt="">
-            </a>
-          </div>
-          <div class="">
-            <h6 class="mb-0 fw-light mb-1">Product Name</h6>
-            <p class="mb-0"><strong>1 X $59.00</strong>
-            </p>
-          </div>
-          <div class="ms-auto fs-5">
-            <a href="javascript:" class="link-dark"><i class="bi bi-trash"></i></a>
-          </div>
-        </div>
-        <hr>
-        <div class="d-flex align-items-center gap-3">
-          <div class="bottom-product-img">
-            <a href="product-details.html">
-              <img src="assets/images/new-arrival/09.webp" width="60" alt="">
-            </a>
-          </div>
-          <div class="">
-            <h6 class="mb-0 fw-light mb-1">Product Name</h6>
-            <p class="mb-0"><strong>1 X $59.00</strong>
-            </p>
-          </div>
-          <div class="ms-auto fs-5">
-            <a href="javascript:" class="link-dark"><i class="bi bi-trash"></i></a>
-          </div>
-        </div>
-        <hr>
-        <div class="d-flex align-items-center gap-3">
-          <div class="bottom-product-img">
-            <a href="product-details.html">
-              <img src="assets/images/new-arrival/10.webp" width="60" alt="">
-            </a>
-          </div>
-          <div class="">
-            <h6 class="mb-0 fw-light mb-1">Product Name</h6>
-            <p class="mb-0"><strong>1 X $59.00</strong>
-            </p>
-          </div>
-          <div class="ms-auto fs-5">
-            <a href="javascript:" class="link-dark"><i class="bi bi-trash"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="offcanvas-footer p-3 border-top">
-      <div class="d-grid">
-        <button type="button" class="btn btn-lg btn-dark btn-ecomm px-5 py-3">Checkout</button>
-      </div>
-    </div>
-
-</div>
-<!--end cat-->
 
 
 
@@ -451,14 +224,11 @@
    <script src="assets/js/main.js"></script>
    <script src="assets/js/loader.js"></script>
 
-   <!-- <script src="./popup.js"></script> -->
-
    <script>
     async function handleHeartClick(event, productId) {
-
-      console.log('like', productId)
       event.preventDefault();
-      var heartIcon = event.currentTarget.querySelector("i.bi-heart");
+      
+      const heartIcon = event.currentTarget.querySelector("i.bi-heart");
       heartIcon.classList.toggle("bi-heart-fill");
       
       await window.gsSDK.addInteraction({
