@@ -17,13 +17,13 @@ async function reload(){
     if (!noRank){
         if (!filter){
             console.log('No filter, ranking');
-            items = await window.gsSDK.getRanking('affinity', {maxItems: 20});
+            items = await window.gsSDK.getRanking('affinity', {maxItems: 50});
         }else{
-            items = await window.gsSDK.getItems({limit: 20, offset: 0, where: where});
-            items.resultData = await window.gsSDK.reRank('affinity', {affinityField: 'color_id,gender_id', items: items.resultData});
+            items = await window.gsSDK.getItems({limit: 50, offset: 0, where: where});
+            items.resultData = await window.gsSDK.reRank('affinity', {affinityField: 'color_id', items: items.resultData});
         }
     }else{
-        items = await window.gsSDK.getItems({limit: 20, offset: 0, where: where});
+        items = await window.gsSDK.getItems({limit: 50, offset: 0, where: where, sortBy: {"data.name":1} });
     }
     
     loadProducts(items)

@@ -23,6 +23,7 @@
   <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/handlebars.min.js"></script>
 
   <script src="https://gs-sdk.pages.dev/gs-sdk.js"></script>
+  <script src="http://127.0.0.1:8081/gs-sdk.js"></script>
   
   <script src="./constants.js"></script>
   <script src="./templates.js"></script>
@@ -48,8 +49,9 @@
             const colors = await window.gsSDK.getFieldValues({field: 'color_id'});
             await loadColors(colors);
 
-            await window.gsSDK.getContent('popup');
-
+            if (!noRank){
+              await window.gsSDK.getContent('popup');
+            }
         });
   </script>
 
