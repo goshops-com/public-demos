@@ -58,8 +58,8 @@
     <script src="https://gs-sdk.pages.dev/gs-sdk.js"></script>
     
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            window.gsSDK = new window.GSSDK.default('ZLSWChC1X6WypnHb');
+        document.addEventListener("DOMContentLoaded", async function() {
+            window.gsSDK = await new window.GSSDK.default('ZLSWChC1X6WypnHb');
             window.gsSDK.getContent('home-section');
         });
     </script>
