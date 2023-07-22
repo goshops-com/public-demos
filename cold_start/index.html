@@ -22,13 +22,12 @@
   
   <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.7/dist/handlebars.min.js"></script>
 
+  <!-- dev env -->
   <script src="https://gs-sdk.pages.dev/gs-sdk.js"></script>
-  <!-- <script src="http://127.0.0.1:8081/gs-sdk.js"></script> -->
   
   <script src="./constants.js"></script>
-  <script src="./templates.js"></script>
+  <script src="./assets/js/templates.js"></script>
   <script src="./script.js"></script>
-  
   
   <script>
 
@@ -36,7 +35,7 @@
       window.colors = [];
         
         document.addEventListener("DOMContentLoaded", async function() {
-            window.gsSDK = await new window.GSSDK.default(CLIENT_ID);
+            window.gsSDK = await new window.GSSDK.default('ZLiFHbRgxtY2VJiS');
             await reload();
 
             window.gsSDK.on('loadProducts', async function(data){
