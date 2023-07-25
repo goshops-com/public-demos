@@ -1,10 +1,18 @@
+async function handleHeartClick(event, productId) {
+    event.preventDefault();
+    
+    const heartIcon = event.currentTarget.querySelector("i.bi-heart");
+    heartIcon.classList.toggle("bi-heart-fill");
+    
+    await window.gsSDK.addInteraction({
+      "event": "like",
+      "item": productId
+    });
+}
+
 async function gridControllerLoad(){
 
     await reload();
-
-    window.gsSDK.on('loadProducts', async function(data){
-        await reload();
-    });
 
     const categories = await window.gsSDK.getFieldValues({field: 'category'});
     await loadCategories(categories);
@@ -27,17 +35,18 @@ async function reload(){
 
     let items;
 
-    if (!false){
-        if (!filter){
-            console.log('No filter, ranking');
-            items = await window.gsSDK.getRanking('affinity', {maxItems: 50});
-        }else{
-            items = await window.gsSDK.getItems({limit: 50, offset: 0, where: where});
-            items.resultData = await window.gsSDK.reRank('affinity', {affinityField: 'color_id', items: items.resultData});
-        }
-    }else{
-        items = await window.gsSDK.getItems({limit: 50, offset: 0, where: where, sortBy: {"data.name":1} });
-    }
+    // if (!false){
+    //     if (!filter){
+    //         console.log('No filter, ranking');
+    //         items = await window.gsSDK.getRanking('affinity', {maxItems: 50});
+    //     }else{
+    //         items = await window.gsSDK.getItems({limit: 50, offset: 0, where: where});
+    //         items.resultData = await window.gsSDK.reRank('affinity', {affinityField: 'color_id', items: items.resultData});
+    //     }
+    // }else{
+    //     items = await window.gsSDK.getItems({limit: 50, offset: 0, where: where, sortBy: {"data.name":1} });
+    // }
+    items = await window.gsSDK.getItems({limit: 50, offset: 0, where: where, sortBy: {"data.name":1} });
     
     loadProducts(items)
   }

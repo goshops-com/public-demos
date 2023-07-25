@@ -27,7 +27,8 @@
     <script src="./assets/js/templates.js"></script>
     <script src="controllers/homeController.js"></script>
     <script src="controllers/productGridController.js"></script>
-
+    <script src="controllers/productDetailController.js"></script>
+    
     <!-- Include jQuery, Handlebars, and your JavaScript file -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
@@ -59,8 +60,6 @@
                 notification.remove();
             }, 5000); // Adjust the duration (in milliseconds) as needed
         }
-
-
     </script>
 
     <script>
@@ -69,11 +68,7 @@
         window.colors = [];
         
         document.addEventListener("DOMContentLoaded", async function() {
-            window.gsSDK = await new window.GSSDK.default('ZLiFHbRgxtY2VJiS');
-            
-            if (!false){
-            //   await window.gsSDK.getContent('popup');
-            }
+            window.gsSDK = await new window.GSSDK.default('ZMAMu1aundefinedRVV3zz2x');
         });
     </script>
 
@@ -204,7 +199,7 @@
         </li>
         <li class="nav-item" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight">
             <a class="nav-link position-relative" href="javascript:;">
-            <div class="cart-badge">8</div>
+            <div class="cart-badge">0</div>
             <i class="bi bi-basket2"></i>
             </a>
         </li>
