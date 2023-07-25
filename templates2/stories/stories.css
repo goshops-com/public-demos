@@ -1,0 +1,255 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;900&display=swap");
+body {
+  margin: 0;
+  font-family: poppins;
+  width: 100%;
+  overflow: hidden;
+}
+.story-main {
+  overflow: hidden;
+}
+.story-slider-main {
+  width: 100%;
+  padding: 40px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: 85% 100%;
+  grid-gap: 30px;
+}
+
+.left-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.status-wrapper {
+  width: 100%;
+  height: 120px;
+  background: #fff;
+  border-radius: 2px;
+  padding: 10px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  overflow-x: auto;
+  gap: 32px;
+}
+
+.status-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.status-card {
+  flex: 0 0 auto;
+  width: 80px;
+  max-width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-pic {
+  box-sizing: border-box;
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  overflow: hidden;
+  padding: 2px;
+  border: 3px solid #1b1417;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.image-div {
+  width: 97%;
+  height: 97%;
+  background: #3ba8b7;
+  border-radius: 50%;
+  overflow: hidden;
+  align-items: center;
+  position: relative;
+}
+.profile-pic img {
+  height: 90%;
+  width: 90%;
+  transform: translateY(70%) scale(3);
+  object-fit: cover;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.username {
+  width: 100%;
+  white-space: nowrap;
+  text-align: center;
+  font-size: 12.5px;
+  margin-top: 5px;
+  font-weight: 600;
+}
+@keyframes slideIn {
+  0% {
+    transform: scale(0.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.story-open-main {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 10px 20px;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  position: absolute;
+  background-image: linear-gradient(180deg, #9a9da0, #dcdee3, #ebefef, #e7efef);
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+  animation: slideIn 0.6s ease;
+  transform-origin: center;
+}
+.cancel-button {
+  font-size: 65px;
+  float: right;
+  font-weight: 200;
+  margin-top: -27px;
+  cursor: pointer;
+}
+.cancel-button:hover {
+  transform: scale(1.2);
+}
+.story-open-main h3 {
+  font-size: 22px;
+  font-weight: 500;
+}
+.indicator-div {
+  display: flex;
+  gap: 7px;
+}
+.indicator {
+  height: 4px;
+  width: 100%;
+  border-radius: 100px;
+  background-color: #fff;
+  position: relative;
+}
+.indicator::before {
+  content: "";
+  left: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  max-width: 0;
+  background-color: #191215;
+  transition: max-width 2s ease-in;
+}
+.indicator.active::before {
+  max-width: 100%;
+}
+.story-open-pic {
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+.story-open-pic img {
+  height: 100%;
+  width: auto;
+}
+.story-strip-div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+.story-strip {
+  background-color: #181115;
+  display: inline-block;
+  padding: 12px 20px;
+  border-radius: 100px;
+  font-weight: 500;
+  color: #f2f3f5;
+  font-size: 20px;
+}
+/* .price-strip{
+transform: translateX(-40px);
+}
+.name-strip{
+    margin-top: 10px;
+    transform: translateX(40px);
+} */
+@keyframes slideLeft {
+  0% {
+    transform: translateX(-40px);
+  }
+  100% {
+    transform: translateX(-80px);
+  }
+}
+
+@keyframes slideRight {
+  0% {
+    transform: translateX(40px);
+  }
+  100% {
+    transform: translateX(80px);
+  }
+}
+
+/* Animation for .price-strip */
+.price-strip {
+  animation: slideLeft 2s ease-in-out infinite;
+}
+
+/* Animation for .name-strip */
+.name-strip {
+  margin-top: 15px;
+  animation: slideRight 2s ease-in-out infinite;
+  max-width: 180px;
+}
+.swipe-up {
+  width: 14rem;
+  height: 8rem;
+  background-color: #181115;
+  border-radius: 10rem 10rem 0 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  cursor: pointer;
+}
+.swipe-up svg {
+  margin-top: 10px;
+}
+.swipe-up h4 {
+  margin: 0;
+  margin-top: -6px;
+  font-weight: 400;
+  font-size: 19px;
+}
+.swipe-up h3 {
+  margin: 0;
+  font-weight: 400;
+  font-size: 25px;
+}
+@media (max-width: 650px) {
+  .status-wrapper {
+    justify-content: unset;
+  }
+}
