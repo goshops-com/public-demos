@@ -101,3 +101,10 @@
       opacity: 1;
     }
   }
+
+  #home-reco {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }

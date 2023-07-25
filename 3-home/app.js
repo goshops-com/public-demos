@@ -14,7 +14,7 @@ $(document).ready(function() {
   router.init('/');
 
   function loadTemplate(templateName, callback) {
-      $.get(`templates/${templateName}.html?v=${new Date().getTime()}`, function(data) {
+      $.get(`templates/${templateName}.html`, function(data) {
           var template = Handlebars.compile(data);
           callback(template);
       }, 'html');
@@ -25,14 +25,9 @@ $(document).ready(function() {
           // Retrieve your products data here, e.g. from an AJAX request
           console.log('loadTemplate', template);
 
-          try {
-              var html = template({});
-              $("#app").html(html);
-              console.log(html);
-          } catch (e) {
-              console.log(e);
-          }
-
+          var html = template({});
+          $("#app").html(html);
+          
           var interval = setInterval(function() {
               if (window.gsSDK) {
                   clearInterval(interval);
