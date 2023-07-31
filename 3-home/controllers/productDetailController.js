@@ -17,6 +17,13 @@ async function addToCart(productId) {
     });
 }
 
-async function detailControllerLoad(){
+async function detailControllerLoad(productId){
+  const options = {
+    productId: productId
+  };
+
+  console.log('options', options);
+  
+  await window.gsSDK.getContentByContext('product_detail', options);
 
 }

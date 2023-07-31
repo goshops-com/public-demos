@@ -42,7 +42,7 @@ $(document).ready(function() {
           if (window.gsSDK) {
               clearInterval(interval);
               const itemData = await window.gsSDK.getItemById(id);
-              console.log(itemData);
+              
               loadTemplate('product-detail', async function(template) {
                   // Retrieve your products data here, e.g. from an AJAX request
                   var html = template(itemData);
@@ -51,6 +51,8 @@ $(document).ready(function() {
                     "event": "view",
                     "item": id
                   });
+
+                  detailControllerLoad(id);
               });
           }
       }, 100);
