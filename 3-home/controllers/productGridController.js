@@ -11,13 +11,13 @@ async function handleHeartClick(event, productId) {
 }
 
 async function gridControllerLoad(){
-    await reload();
-
     const categories = await window.gsSDK.getFieldValues({field: 'category'});
     await loadCategories(categories);
 
     const colors = await window.gsSDK.getFieldValues({field: 'color_id'});
     await loadColors(colors);
+
+    await reload();
 }
 
 async function reload(){
