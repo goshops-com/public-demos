@@ -18,6 +18,9 @@ async function addToCart(productId) {
 }
 
 async function detailControllerLoad(productId){
+
+  console.log('detailControllerLoad');
+
   const options = {
     productId: productId
   };

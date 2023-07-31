@@ -11,6 +11,9 @@ async function handleHeartClick(event, productId) {
 }
 
 async function gridControllerLoad(){
+
+    console.log('gridControllerLoad');
+    
     const categories = await window.gsSDK.getFieldValues({field: 'category'});
     await loadCategories(categories);
 
