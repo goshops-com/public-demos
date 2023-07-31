@@ -18,15 +18,9 @@ async function addToCart(productId) {
 }
 
 async function detailControllerLoad(productId){
-
-  console.log('detailControllerLoad');
-
   const options = {
     productId: productId
   };
-
-  console.log('options', options);
   
   await window.gsSDK.getContentByContext('product_detail', options);
-
 }
