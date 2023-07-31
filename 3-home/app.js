@@ -43,6 +43,8 @@ $(document).ready(function() {
               clearInterval(interval);
               const itemData = await window.gsSDK.getItemById(id);
               
+              itemData.imgs[0].url = convertUrl(itemData.imgs[0].url);
+              
               loadTemplate('product-detail', async function(template) {
                   // Retrieve your products data here, e.g. from an AJAX request
                   var html = template(itemData);
