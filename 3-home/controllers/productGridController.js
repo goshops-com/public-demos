@@ -99,10 +99,23 @@ async function loadColors(colors){
     });
 }
 
+function convertUrl(url) {
+    // Split the URL into different parts
+    const parts = url.split('/');
+  
+    // Extract the ID from the last part of the URL
+    const originalId = parts[parts.length - 1].split('.')[0];
+  
+    // Create the new URL format with the extracted ID
+    const newUrl = `https://go-shops-public-materials.nyc3.cdn.digitaloceanspaces.com/images-small/destination/${originalId}.jpg`;
+  
+    return newUrl;
+  }
+
 async function loadProducts(items){
     const products = items.resultData.map(item => ({
         id: item.id,
-        image: item.image_url || "",
+        image: convertUrl(item.image_url) || "",
         title: item.name || "",
         description: "",
         price: "$ " + item.price || "",
