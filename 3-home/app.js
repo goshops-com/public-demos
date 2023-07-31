@@ -52,7 +52,16 @@ $(document).ready(function() {
                     "item": id
                   });
 
-                  detailControllerLoad(id);
+                  console.log('loading controller')
+                  var interval = setInterval(function() {
+                    if (window.gsSDK) {
+                        clearInterval(interval);
+                        detailControllerLoad(id);
+                        console.log('loading controller completed')
+                    }
+                  }, 50);
+
+                  
               });
           }
       }, 100);
