@@ -1,0 +1,110 @@
+
+    .text-red {
+        color: red;
+    }
+
+    .text-blue {
+        color: blue;
+    }
+
+    .text-yellow {
+        color: yellow;
+    }
+
+    .text-green {
+        color: green;
+    }
+
+    .text-info {
+        color: #17a2b8;
+    }
+
+    .text-black {
+        color: black;
+    }
+
+    .text-purple {
+        color: purple;
+    }
+
+    .text-orange {
+        color: orange;
+    }
+
+    .text-beige {
+        color: beige;
+    }
+
+    .text-bronze {
+        color: bronze;
+    }
+
+    .text-brown {
+        color: brown;
+    }
+
+    .text-burgundy {
+        color: #800020;
+    }
+
+    .text-charcoal {
+        color: #36454f;
+    }
+
+    .text-coffee {
+        color: #4b3621;
+    }
+
+    .text-cream {
+        color: #f5f5dc;
+    }
+
+    .text-fluorescent-green {
+        color: #ccff00;
+    }
+
+    .text-gold {
+        color: gold;
+    }
+
+    .bi-heart-fill {
+        color: red;
+    }
+
+/* Styling for the notification container */
+#notification-container {
+    position: fixed;
+    top: 20px; /* Position at the top */
+    right: 20px;
+    max-width: 300px;
+    padding: 10px;
+    z-index: 9999; /* Ensure it's on top of other elements */
+  }
+  
+  /* Styling for the notification */
+  .notification {
+    background-color: #4CAF50; /* Green background */
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    animation: fade-in-out 4s;
+  }  
+  
+  @keyframes fade-in-out {
+    0%, 100% {
+      opacity: 0;
+    }
+    10%, 90% {
+      opacity: 1;
+    }
+  }
+
+  #home-reco {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }

@@ -1,0 +1,87 @@
+  <div class="py-4 border-bottom">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0"> 
+          <li class="breadcrumb-item"><a href="#/">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Shop Grid</li>
+        </ol>
+      </nav>
+    </div>
+   </div>
+   
+   <section class="section-padding">
+    <h5 class="mb-0 fw-bold d-none">Product Grid</h5>
+    <div class="container">
+      <div class="btn btn-dark btn-ecomm d-xl-none position-fixed top-50 start-0 translate-middle-y"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbarFilter"><span><i class="bi bi-funnel me-1"></i> Filters</span></div>
+       <div class="row">
+          <div class="col-12 col-xl-3 filter-column">
+              <nav class="navbar navbar-expand-xl flex-wrap p-0">
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbarFilter" aria-labelledby="offcanvasNavbarFilterLabel">
+                  <div class="offcanvas-header">
+                    <h5 class="offcanvas-title mb-0 fw-bold" id="offcanvasNavbarFilterLabel">Filters</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                  </div>
+                  <div class="offcanvas-body">
+                    <div class="filter-sidebar">
+                      <div class="card rounded-0">
+                        <div class="card-header d-none d-xl-block bg-transparent">
+                            <h5 class="mb-0 fw-bold">Filters</h5>
+                        </div>
+                        <div class="card-body">
+                          <h6 class="p-1 fw-bold bg-light">Categories</h6>
+                          <div class="categories">
+                            <div id="categories-container"></div>
+                          </div>                        
+                          <hr>
+                          <hr>
+                          <div class="Price">
+                            <h6 class="p-1 fw-bold bg-light">Price</h6>
+                             <div class="Price-wrapper p-1">
+                              <div class="input-group">
+                                <input type="text" class="form-control rounded-0" placeholder="$10">
+                                <span class="input-group-text bg-section-1 border-0">-</span>
+                                <input type="text" class="form-control rounded-0" placeholder="$10000">
+                                <button type="button" class="btn btn-outline-dark rounded-0 ms-2"><i class="bi bi-chevron-right"></i></button>
+                              </div>
+                             </div>
+                           </div>
+                           <hr>
+                           <div class="colors">
+                            <h6 class="p-1 fw-bold bg-light">Colors</h6>
+                            <div id="colors-container"></div>
+                           <hr>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </nav>
+          </div>
+          <div class="col-12 col-xl-9">
+            <div class="shop-right-sidebar">
+              <div class="card rounded-0">
+                <div class="card-body p-2">
+                  <div class="d-flex align-items-center justify-content-between bg-light p-2">
+                     <div id="product-count" class="product-count"></div>
+                     <form>
+                      <div class="input-group">
+                        <span class="input-group-text bg-transparent rounded-0 border-0">Sort By</span>
+                        <select class="form-select rounded-0">
+                          <option selected>Whats'New</option>
+                          <option value="1">Popularity</option>
+                          <option value="2">Better Discount</option>
+                          <option value="3">Price : Hight to Low</option>
+                          <option value="4">Price : Low to Hight</option>
+                          <option value="5">Custom Rating</option>
+                        </select>
+                      </div>
+                    </form> 
+                  </div>
+                </div>
+              </div>
+
+            <div id="product-container"></div>
+          </div>
+       </div><!--end row-->
+    </div>
+  </section> 
