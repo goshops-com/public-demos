@@ -1,0 +1,85 @@
+<style>
+  .search-results {
+  display: none;
+  position: absolute;
+  width: 100%;
+  border: 1px solid #ccc;
+  background-color: white;
+  z-index: 1; /* Make sure the results appear above other content */
+}
+.search-results.show {
+  display: block;
+}
+.search-results div {
+  padding: 10px;
+  cursor: pointer;
+}
+.search-results div:hover {
+  background-color: #f0f0f0;
+}
+
+</style>
+
+<script>
+  const input = document.querySelector('.form-control');
+const resultsContainer = document.getElementById('search-results');
+
+input.addEventListener('input', async (event) => {
+  const query = event.target.value;
+  if (query.length < 3) { // You may want to set a minimum length
+    resultsContainer.innerHTML = '';
+    resultsContainer.classList.remove('show');
+    return;
+  }
+
+  // Fetch data from your API
+  const results = await fetchSearchResults(query);
+
+  // Clear previous results
+  resultsContainer.innerHTML = '';
+
+  // Append new results
+  results.forEach(result => {
+    const resultElement = document.createElement('div');
+    resultElement.textContent = result.name; // Customize this based on your result object
+    resultElement.addEventListener('click', () => {
+      // Handle click event, e.g., navigate to the product page
+      window.location.href = result.url;
+    });
+    resultsContainer.appendChild(resultElement);
+  });
+
+  // Show results container
+  resultsContainer.classList.add('show');
+});
+
+// Function to fetch data from your API
+function fetchSearchResults(query) {
+  return new Promise((resolve) => {
+    const results = [
+      { name: 'Product 1', url: '/product1' },
+      { name: 'Product 2', url: '/product2' },
+      { name: 'Product 3', url: '/product3' },
+    ];
+    resolve(results);
+  });
+}
+
+</script>
+<section class="section-padding bg-section-2">
+  <div class="container">
+    <div class="d-flex align-items-center">
+      <div class="">
+        <h3 class="mb-0 fw-bold">Search Products</h3>
+      </div>
+      <div class="ms-auto">
+        <button type="button" class="btn-close" onclick="history.back()" aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="search-box position-relative mt-4">
+      <div class="position-absolute top-50 start-0 translate-middle ms-4 fs-5"><i class="bi bi-search"></i></div>
+      <input class="form-control form-control-lg ps-5 rounded-0" type="text" placeholder="Type here to search">
+      <div class="search-results" id="search-results"></div> <!-- Results container -->
+    </div>
+  </div>
+</section>

@@ -14,6 +14,9 @@ $(document).ready(function() {
       },
       '/my-orders': function() {
         renderMyOrders();
+      },
+      '/search': function() {
+        renderSearch();
       }
   });
 
@@ -42,6 +45,16 @@ $(document).ready(function() {
           }, 50);
       });
   }
+
+  function renderSearch() {
+    loadTemplate('search', function(template) {
+        // Retrieve your products data here, e.g. from an AJAX request
+        console.log('loadTemplate', template);
+
+        var html = template({});
+        $("#app").html(html);
+    });
+    }
 
   function renderMyOrders() {
     loadTemplate('my-orders', function(template) {
