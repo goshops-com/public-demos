@@ -24,6 +24,7 @@
           const id = customer.data.id;
           console.log(customer.data);
           await window.gsSDK.login(id);
+          window.user_id = id;
           // Redirect to #home
           window.location.href = '#';
         }
@@ -92,7 +93,7 @@
                       </div>
                       <div class="col-12">
                         <label for="examplePassword" class="form-label">Password</label>
-                        <input type="text" class="form-control rounded-0" id="examplePassword">
+                        <input type="password" class="form-control rounded-0" id="examplePassword">
                       </div>
                       <div class="col-12">
                         <a href="javascript:;" class="text-content btn bg-light rounded-0 w-100"><i class="bi bi-lock me-2"></i>Forgot Password</a>

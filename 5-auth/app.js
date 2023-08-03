@@ -11,6 +11,9 @@ $(document).ready(function() {
       },
       '/login': function() {
         renderLogin();
+      },
+      '/my-orders': function() {
+        renderMyOrders();
       }
   });
 
@@ -40,14 +43,33 @@ $(document).ready(function() {
       });
   }
 
+  function renderMyOrders() {
+    loadTemplate('my-orders', function(template) {
+        // Retrieve your products data here, e.g. from an AJAX request
+        console.log('loadTemplate', template);
+        const products = orders.filter((product) => product.user_id == window.user_id);
+        console.log(products);
+        var html = template({products});
+        $("#app").html(html);
+        
+        var interval = setInterval(function() {
+            if (window.gsSDK) {
+                clearInterval(interval);
+                homeController();
+            }
+        }, 50);
+    });
+}
+
   function renderLogin() {
       loadTemplate('login', function(template) {
           // Retrieve your products data here, e.g. from an AJAX request
           console.log('loadTemplate', template);
 
+
           var html = template({});
           $("#app").html(html);
-          
+
           var interval = setInterval(function() {
               if (window.gsSDK) {
                   clearInterval(interval);
