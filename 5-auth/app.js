@@ -46,9 +46,18 @@ $(document).ready(function() {
       });
   }
 
-  function renderSearch() {
-    $.get(`templates/search.html`, function(data) {
-        $("#app").empty().html(data);
+  async function renderSearch() {
+    $.get(`templates/search.html`, async function(data) {
+        $("#app").html(data);
+
+        var interval = setInterval(async function() {
+            if (window.gsSDK) {
+                clearInterval(interval);
+                await window.gsSDK.getContent('search');
+            }
+        }, 50);
+
+        
     }, 'html');
   }
 
