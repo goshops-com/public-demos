@@ -21,51 +21,122 @@
 </style>
 
 <script>
-  const input = document.querySelector('.form-control');
-const resultsContainer = document.getElementById('search-results');
 
-input.addEventListener('input', async (event) => {
-  const query = event.target.value;
-  if (query.length < 3) { // You may want to set a minimum length
+var input = document.querySelector('.form-control');
+var resultsContainer = document.getElementById('search-results');
+
+var timer;
+
+input.addEventListener('input', (event) => {
+  clearTimeout(timer); // Clear any existing timers
+
+  timer = setTimeout(async () => {
+    const query = event.target.value;
+    if (query.length < 2) { // You may want to set a minimum length
+      resultsContainer.innerHTML = '';
+      resultsContainer.classList.remove('show');
+      return;
+    }
+
+    // Fetch data from your API
+    const results = await window.gsSDK.search(query, {insta: true});
+
+    // Clear previous results
     resultsContainer.innerHTML = '';
-    resultsContainer.classList.remove('show');
-    return;
-  }
 
-  // Fetch data from your API
-  const results = await fetchSearchResults(query);
+    // Append new results
+    results.hits.forEach(result => {
+      const resultElement = document.createElement('div');
+      resultElement.textContent = result.name; // Customize this based on your result object
+      resultElement.addEventListener('click', async () => {
+        // Update the input value with the selected result
+        input.value = result.name; // You may customize this based on the value you want to display
 
-  // Clear previous results
-  resultsContainer.innerHTML = '';
+        // Optionally, you can hide the results container after selection
+        resultsContainer.innerHTML = '';
+        resultsContainer.classList.remove('show');
 
-  // Append new results
-  results.forEach(result => {
-    const resultElement = document.createElement('div');
-    resultElement.textContent = result.name; // Customize this based on your result object
-    resultElement.addEventListener('click', () => {
-      // Handle click event, e.g., navigate to the product page
-      window.location.href = result.url;
+        await fullSearch(input.value);
+        // Handle any other logic you want on selection, e.g., navigate to the product page
+        // window.location.href = result.url;
+      });
+      resultsContainer.appendChild(resultElement);
     });
-    resultsContainer.appendChild(resultElement);
-  });
 
-  // Show results container
-  resultsContainer.classList.add('show');
+    // Show results container
+    resultsContainer.classList.add('show');
+  }, 300); // 300 milliseconds delay
 });
 
-// Function to fetch data from your API
-function fetchSearchResults(query) {
-  return new Promise((resolve) => {
-    const results = [
-      { name: 'Product 1', url: '/product1' },
-      { name: 'Product 2', url: '/product2' },
-      { name: 'Product 3', url: '/product3' },
-    ];
-    resolve(results);
-  });
-}
+input.addEventListener('keydown', async (event) => {
+  if (event.key === 'Enter') {
+    // Perform a different search when Enter is pressed
+    const query = event.target.value;
+    if (query.length < 2) { // You may want to set a minimum length
+      return;
+    }
+    resultsContainer.innerHTML = '';
+    resultsContainer.classList.remove('show');
+    await fullSearch(query);
+  }
+});
 
+
+
+
+async function fullSearch(query){
+
+  const productTemplate = `{{#each products as |product|}}
+    <div class="card">
+      <div class="position-relative overflow-hidden">
+        <div class="add-cart position-absolute top-0 end-0 mt-3 me-3">
+          <a href="javascript:;"><i class='bx bx-cart-add'></i></a>
+        </div>
+        <a href="#/product-detail/{{product.id}}">
+          <img style="width: 150px;" src="{{product.image_url}}" class="img-fluid" alt="{{product.alt}}">
+        </a>
+      </div>
+      <div class="card-body px-0">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="">
+            <p class="mb-1 product-short-name">{{product.name}}</p>
+            <h6 class="mb-0 fw-bold product-short-title">{{product.category}}</h6>
+          </div>
+          <div class="icon-wishlist">
+            <a href="javascript:;"><i class="bx bx-heart"></i></a>
+          </div>
+        </div>
+        <div class="cursor-pointer rating mt-2">
+        </div>
+        <div class="product-price d-flex align-items-center justify-content-start gap-2 mt-2">
+          <div class="h6 fw-bold">{{product.price}}</div>
+        </div>
+      </div>
+    </div>
+  {{/each}}`;
+
+  const results = await window.gsSDK.search(query, {});
+  console.log(results);
+
+  console.log('productTemplate', productTemplate);
+  // Compile the template
+  var template = Handlebars.compile(productTemplate);
+
+  // Define your data
+  var data = {
+    products: results.hits
+  };
+
+  // Render the template with the data
+  var html = template(data);
+
+  console.log(html)
+  // Inject the rendered HTML into the DOM
+  document.getElementById("product-container").innerHTML = html;
+}
 </script>
+
+
 <section class="section-padding bg-section-2">
   <div class="container">
     <div class="d-flex align-items-center">
@@ -79,7 +150,26 @@ function fetchSearchResults(query) {
     <div class="search-box position-relative mt-4">
       <div class="position-absolute top-50 start-0 translate-middle ms-4 fs-5"><i class="bi bi-search"></i></div>
       <input class="form-control form-control-lg ps-5 rounded-0" type="text" placeholder="Type here to search">
-      <div class="search-results" id="search-results"></div> <!-- Results container -->
+      <div class="search-results" id="search-results">
+      </div> <!-- Results container -->
     </div>
+
+    <div class="row" style="margin-top: 50px;">
+      <div class="col-12 col-xl-12">
+        <div class="product-wrapper">
+          <div class="product-grid">
+            <div id="product-container" class="row row-cols-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 g-3 g-sm-4">
+            </div>
+          </div>
+         </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+        
+      </div>
+    </div>
+    
   </div>
 </section>
+

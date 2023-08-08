@@ -47,14 +47,10 @@ $(document).ready(function() {
   }
 
   function renderSearch() {
-    loadTemplate('search', function(template) {
-        // Retrieve your products data here, e.g. from an AJAX request
-        console.log('loadTemplate', template);
-
-        var html = template({});
-        $("#app").html(html);
-    });
-    }
+    $.get(`templates/search.html`, function(data) {
+        $("#app").empty().html(data);
+    }, 'html');
+  }
 
   function renderMyOrders() {
     loadTemplate('my-orders', function(template) {
