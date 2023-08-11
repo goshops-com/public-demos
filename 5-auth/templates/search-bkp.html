@@ -17,7 +17,19 @@
 .search-results div:hover {
   background-color: #f0f0f0;
 }
+#upload-button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  height: calc(1.5em + .75rem + 2px);
+}
 
+.search-box .d-flex {
+  align-items: stretch;
+}
+
+.search-box input.form-control {
+  border-right: none; /* Removes the right border to make the button blend with the input */
+}
 </style>
 
 <script>
@@ -81,10 +93,33 @@ input.addEventListener('keydown', async (event) => {
   }
 });
 
+document.getElementById('image-upload').addEventListener('change', async function(e) {
+  const file = e.target.files[0];
+  if (file) {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    var inputValue = document.getElementById('search-input').value;
+    const params = {
+      text: inputValue
+    }
+
+    const results = await window.gsSDK.imageSearch(formData, params);
+    console.log(results);
+    addProducts(results);
+    resultsContainer.innerHTML = '';
+    resultsContainer.classList.remove('show');
+    
+  }
+});
+
 async function fullSearch(query) {
   const results = await window.gsSDK.search(query, {});
   console.log(results);
+  addProducts(results);
+}
 
+function addProducts(results){
   let html = '';
 
   results.hits.forEach(product => {
@@ -133,7 +168,11 @@ async function fullSearch(query) {
     </div>
     <div class="search-box position-relative mt-4">
       <div class="position-absolute top-50 start-0 translate-middle ms-4 fs-5"><i class="bi bi-search"></i></div>
-      <input class="form-control form-control-lg ps-5 rounded-0" type="text" placeholder="Type here to search">
+      <div class="d-flex">
+        <input id="search-input" class="form-control form-control-lg ps-5 rounded-0" type="text" placeholder="Type here to search" style="flex-grow: 1;">
+        <button type="button" id="upload-button" class="btn btn-primary" onclick="document.getElementById('image-upload').click()">Upload Image</button>
+      </div>
+      <input type="file" id="image-upload" accept="image/*" style="display: none;" />
       <div class="search-results" id="search-results">
       </div> <!-- Results container -->
     </div>
