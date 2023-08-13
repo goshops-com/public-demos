@@ -47,15 +47,15 @@ $(document).ready(function() {
   }
 
   async function renderSearch() {
-    $.get(`templates/search-bkp.html`, async function(data) {
+    $.get(`templates/search.html`, async function(data) {
         $("#app").html(data);
 
-        // var interval = setInterval(async function() {
-        //     if (window.gsSDK) {
-        //         clearInterval(interval);
-        //         await window.gsSDK.getContent('search');
-        //     }
-        // }, 50);
+        var interval = setInterval(async function() {
+            if (window.gsSDK) {
+                clearInterval(interval);
+                await window.gsSDK.getContent('search');
+            }
+        }, 50);
 
         
     }, 'html');
