@@ -82,7 +82,14 @@
         window.colors = [];
         
         document.addEventListener("DOMContentLoaded", async function() {
-            window.gsSDK = await new window.GSSDK.default('ZMAMu1aundefinedRVV3zz2x');
+            window.gsSDK = await new window.GSSDK.default('ZMAMu1aundefinedRVV3zz2x', {
+              plugins: [
+                {
+                  id: 'browse',
+                  options: {}
+                }
+              ]
+            });
         });
     </script>
 

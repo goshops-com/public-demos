@@ -21,9 +21,6 @@
 
     <title>E-Shopperia</title>
 
-    <!-- dev env -->
-    <script src="https://gs-sdk.pages.dev/gs-sdk.js"></script>
-
     <script src="./assets/js/templates.js"></script>
     <script src="controllers/homeController.js?v=2"></script>
     <script src="controllers/productGridController.js?v=2"></script>
@@ -78,14 +75,16 @@
         }
     </script>
 
+    <script async src="https://gs-sdk.pages.dev/gs-sdk.js" onload="initializeGSSDK()"></script>
     <script>
+      window.initializeGSSDK = async function() {
+        window.gsSDK = await new window.GSSDK.default('ZKl7wMqfExNDnbw4');
+      }
+    </script>
 
+    <script>
         window.categories = [];
         window.colors = [];
-        
-        document.addEventListener("DOMContentLoaded", async function() {
-            window.gsSDK = await new window.GSSDK.default('ZKl7wMqfExNDnbw4');
-        });
     </script>
 
 </head>
