@@ -84,6 +84,7 @@
         document.addEventListener("DOMContentLoaded", async function() {
             window.gsSDK = await new window.GSSDK.default('ZMAMu1aundefinedRVV3zz2x', {
               log: true,
+              byPassCache: true,
               plugins: [
                 {
                   id: 'browse',
@@ -195,6 +196,7 @@
                 <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="cart.html">Shop Cart</a></li>
                 <li><a class="dropdown-item" href="#products">Shop Grid</a></li>
+                <li><a class="dropdown-item" href="#checkout">Checkout</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown">

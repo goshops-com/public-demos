@@ -8,6 +8,9 @@ $(document).ready(function() {
       },
       '/products': function() {
           renderProducts();
+      },
+      '/checkout': function() {
+        renderCheckout();
       }
   });
 
@@ -36,6 +39,37 @@ $(document).ready(function() {
           }, 50);
       });
   }
+
+  function renderCheckout() {
+    loadTemplate('checkout', async function(template) {
+        // Retrieve your products data here, e.g. from an AJAX request
+        console.log('loadTemplate', template);
+        const state = await window.gsSDK.getState();
+        console.log('state', JSON.stringify(state.cart))
+
+        var html = template(state.cart);
+        $("#app").html(html);
+        
+        document.getElementById('placeOrderBtn').addEventListener('click', async function() {
+            const orderDetails = state.cart.products.map(product => {
+                return {
+                    id: product.id,
+                    quantity: product.quantity
+                };
+            });
+            const orders = [];
+            orderDetails.forEach((product) => {
+                orders.push({
+                    event: "purchase",
+                    item: product.id,
+                    quantity: product.quantity
+                })
+            })
+            await window.gsSDK.addBulkInteractions(orders);
+            window.location.hash = "/";
+        });
+    });
+}
 
   async function renderProductDetail(id) {
       let interval = setInterval(async function() {
