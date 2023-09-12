@@ -62,7 +62,9 @@ $(document).ready(function() {
                 orders.push({
                     event: "purchase",
                     item: product.id,
-                    quantity: product.quantity
+                    quantity: product.quantity,
+                    price: parseFloat(product.price),
+                    amount: product.quantity*parseFloat(product.price)
                 })
             })
             await window.gsSDK.addBulkInteractions(orders);
