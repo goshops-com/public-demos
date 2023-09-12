@@ -54,7 +54,8 @@ $(document).ready(function() {
             const orderDetails = state.cart.products.map(product => {
                 return {
                     id: product.id,
-                    quantity: product.quantity
+                    quantity: product.quantity,
+                    price: product.price
                 };
             });
             const orders = [];
@@ -68,7 +69,7 @@ $(document).ready(function() {
                 })
             })
             await window.gsSDK.addBulkInteractions(orders);
-            window.location.hash = "/";
+            window.location.href = '#'
         });
     });
 }

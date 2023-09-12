@@ -15,6 +15,8 @@ async function addToCart(productId) {
       "event": "cart",
       "item": `${productId}`
     });
+
+    window.location.href = '#'
 }
 
 async function detailControllerLoad(productId){
