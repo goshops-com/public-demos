@@ -77,6 +77,7 @@ $(document).ready(function() {
             })
             await window.gsSDK.addBulkInteractions(orders);
             window.location.href = '#'
+            window.location.reload();
         });
     });
 }
