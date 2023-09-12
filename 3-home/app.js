@@ -58,6 +58,13 @@ $(document).ready(function() {
                     price: product.price
                 };
             });
+
+            const hasProduct46271 = orderDetails.some(product => product.id == '46271');
+            if (hasProduct46271){
+                document.getElementById('error').style.display = 'block';
+                return;
+            }
+
             const orders = [];
             orderDetails.forEach((product) => {
                 orders.push({
