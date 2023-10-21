@@ -102,7 +102,7 @@ async function loadColors(colors){
 async function loadProducts(items){
     const products = items.resultData.map(item => ({
         id: item.id,
-        image: convertUrl(item.image_url) || "",
+        image: item.imgs[0].url,
         title: item.name || "",
         description: "",
         price: "$ " + item.price || "",
