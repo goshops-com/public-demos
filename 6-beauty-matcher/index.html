@@ -80,6 +80,8 @@
                     };
                     reader.readAsDataURL(file);
 
+                    resetProductsSection();
+
                     startLoading();
                 }
             });
@@ -118,21 +120,17 @@
 
             }
 
-            function deleteProductListAndMessage() {
-                // Get the product list and message elements
-                var productContainer = document.getElementById('product-list');
-                var messageH2 = document.querySelector('.products-section h2');
-
-                // Remove the product list element if it exists
-                if (productContainer) {
-                    productContainer.parentNode.removeChild(productContainer);
-                }
-
-                // Remove the h2 message element if it exists
-                if (messageH2) {
-                    messageH2.parentNode.removeChild(messageH2);
-                }
-            }    
+            function resetProductsSection() {
+                // Get the products-section by ID
+                var productsSection = document.getElementById('products-section');
+                
+                // Reset the inner HTML to the desired structure
+                productsSection.innerHTML = `
+                    <h2>Featured Products</h2>
+                    <div id="product-list" class="row">
+                        <!-- Products will be added here dynamically -->
+                    </div>`;
+            }
 
             function populateProducts(products){
                 products.forEach(function(product) {
