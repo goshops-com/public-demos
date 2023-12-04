@@ -87,6 +87,7 @@
             var productList = document.getElementById('product-list');
             
             async function uploadImage(file) {
+                deleteProductListAndMessage()
                 var formData = new FormData();
                 formData.append('image', file);
 
@@ -116,9 +117,21 @@
 
             }
 
-            
-            
-            
+            function deleteProductListAndMessage() {
+                // Get the product list and message elements
+                var productContainer = document.getElementById('product-list');
+                var messageH2 = document.querySelector('.products-section h2');
+
+                // Remove the product list element if it exists
+                if (productContainer) {
+                    productContainer.parentNode.removeChild(productContainer);
+                }
+
+                // Remove the h2 message element if it exists
+                if (messageH2) {
+                    messageH2.parentNode.removeChild(messageH2);
+                }
+            }    
 
             function populateProducts(products){
                 products.forEach(function(product) {
