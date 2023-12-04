@@ -56,8 +56,6 @@
             
             var productSection = document.getElementById('products-section');
             
-            var productContainer = document.getElementById('product-list');
-
             var uploadButton = document.getElementById('upload');
             var fileInput = document.getElementById('fileInput');
 
@@ -71,6 +69,7 @@
             fileInput.addEventListener('change', function() {
                 var file = fileInput.files[0];
                 if (file) {
+                    resetProductsSection();
                     uploadImage(file);
                     var reader = new FileReader();
                     reader.onload = function(e) {
@@ -80,15 +79,15 @@
                     };
                     reader.readAsDataURL(file);
 
-                    resetProductsSection();
-
                     startLoading();
                 }
             });
 
-            var productList = document.getElementById('product-list');
+            
             
             async function uploadImage(file) {
+
+                
 
                 var formData = new FormData();
                 formData.append('image', file);
@@ -109,7 +108,12 @@
 
                 stopLoading();
 
-                populateProducts(recommendations.data);
+                var productList = document.getElementById('product-list');
+                console.log('productList', productList);
+
+                populateProducts(recommendations.data, productList);
+
+                var productSection = document.getElementById('products-section');
                 productSection.style.display = 'block';
                 
                 var recommendationMessage = document.createElement('p');
@@ -131,7 +135,7 @@
                     </div>`;
             }
 
-            function populateProducts(products){
+            function populateProducts(products, productContainer){
                 products.forEach(function(product) {
                     var colDiv = document.createElement('div');
                     colDiv.className = 'col-md-2 mb-2'; // Changed from col-md-4 to col-md-3 for smaller cards
