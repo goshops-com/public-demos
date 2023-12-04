@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beauty & Cosmetics</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+        .hero-banner {
+            background: url('https://www.shutterstock.com/image-photo/makeup-professional-cosmetics-on-pink-260nw-1398700589.jpg') no-repeat center center;
+            background-size: cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-banner h1 {
+            color: white;
+            font-size: 3rem;
+        }
+        .upload-section {
+            padding: 20px;
+            text-align: center;
+        }
+        .upload-btn {
+            margin: 20px 0;
+        }
+        .products-section {
+            padding: 20px;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            function startLoading() {
+                var loadingSpinner = document.getElementById('loading');
+                loadingSpinner.style.display = 'block'; // Show the spinner
+            }
+
+            // Function to stop the loading spinner
+            function stopLoading() {
+                var loadingSpinner = document.getElementById('loading');
+                loadingSpinner.style.display = 'none'; // Hide the spinner
+            }
+
+            
+            var productSection = document.getElementById('products-section');
+            
+            var productContainer = document.getElementById('product-list');
+
+            var uploadButton = document.getElementById('upload');
+            var fileInput = document.getElementById('fileInput');
+
+            uploadButton.addEventListener('click', function() {
+                fileInput.click(); // Trigger the file input
+            });
+
+            productSection.style.display = 'none'; // This will hide the element
+
+
+            fileInput.addEventListener('change', function() {
+                var file = fileInput.files[0];
+                if (file) {
+                    uploadImage(file);
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        var imagePreview = document.getElementById('imagePreview');
+                        imagePreview.style.backgroundImage = `url(${e.target.result})`;
+                        imagePreview.style.display = 'block'; // Show the image container
+                    };
+                    reader.readAsDataURL(file);
+
+                    startLoading();
+                }
+            });
+
+            var productList = document.getElementById('product-list');
+            
+            async function uploadImage(file) {
+                var formData = new FormData();
+                formData.append('image', file);
+
+                const response = await window.gsSDK.uploadImage(formData);
+                const imageURL = response.url;
+
+                const recommendations = await window.gsSDK.recommendationByContex({
+                    context: {
+                        currentPage: {
+                            imageURL
+                        }
+                    },
+                    strategy: "face_makeup"
+                });
+
+                console.log(recommendations);
+
+                stopLoading();
+
+                populateProducts(recommendations.data);
+                productSection.style.display = 'block';
+                
+                var recommendationMessage = document.createElement('p');
+                recommendationMessage.className = 'lead';
+                recommendationMessage.textContent = recommendations.message;
+                productSection.insertBefore(recommendationMessage, productList);
+
+            }
+
+            
+            
+            
+
+            function populateProducts(products){
+                products.forEach(function(product) {
+                    var colDiv = document.createElement('div');
+                    colDiv.className = 'col-md-2 mb-2'; // Changed from col-md-4 to col-md-3 for smaller cards
+
+                    var cardDiv = document.createElement('div');
+                    cardDiv.className = 'card';
+
+                    var img = document.createElement('img');
+                    img.className = 'card-img-top';
+                    img.src = product.image_url;
+                    img.alt = product.name;
+
+                    var cardBody = document.createElement('div');
+                    cardBody.className = 'card-body';
+
+                    var cardTitle = document.createElement('h5');
+                    cardTitle.className = 'card-title';
+                    cardTitle.textContent = product.name;
+
+                    var cardText = document.createElement('p');
+                    cardText.className = 'card-text';
+                    cardText.textContent = product.brand;
+
+                    cardBody.appendChild(cardTitle);
+                    cardBody.appendChild(cardText);
+
+                    cardDiv.appendChild(img);
+                    cardDiv.appendChild(cardBody);
+
+                    colDiv.appendChild(cardDiv);
+
+                    productContainer.appendChild(colDiv);
+                });
+            }
+            
+        });
+
+    </script>
+
+    <script>
+        async function initializeGSSDK() {
+            window.gsSDK = await new window.GSSDK.default('D-ZWvFwW9zXSILm7MV',
+            { provider: 'Other' });
+        }
+        var gsSDKScript = document.createElement('script');
+        gsSDKScript.src = 'https://gs-sdk.pages.dev/gs-sdk.js';
+        gsSDKScript.onload = initializeGSSDK;
+        document.head.appendChild(gsSDKScript);
+    </script>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">BeautyMatch</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Virtual Try-On</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="hero-banner">
+        <h1 style="color: black;">BeautyMatch</h1>
+    </div>
+
+    <div class="upload-section">
+        <h2>Try Our BeautyMatch</h2>
+        <p>Upload your photo and let our AI recommend the best products for you.</p>
+        <input type="file" id="fileInput" accept="image/*" style="display: none;" />
+        <button id="upload" class="btn btn-primary upload-btn">Upload Photo</button>
+        <div class="mt-3 d-flex justify-content-center">
+            <div id="imagePreview" style="width: 200px; height: 200px; border-radius: 50%; background-position: center center; background-size: cover; display: none; border: 3px solid #ffcccb;"></div>
+        </div>
+    </div>
+
+    <div id="loading" class="spinner-border text-primary" role="status" style="display: none;">
+        <span class="sr-only">Loading...</span>
+    </div>
+
+    <div id="products-section" class="products-section">
+        <h2>Featured Products</h2>
+        <div id="product-list" class="row">
+            <!-- Products will be added here dynamically -->
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2023 BeautyMatch. All rights reserved.</p>
+    </div>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
