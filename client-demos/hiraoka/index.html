@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Background Image Page</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .bg {
+            background-image: url('https://go-shops.nyc3.digitaloceanspaces.com/demos/Screenshot%202023-12-06%20at%2015.51.48.png');
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<script>
+  (function(d,t) {
+    var BASE_URL="https://chat-dev.goshops.ai";
+    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=BASE_URL+"/packs/js/sdk.js";
+    g.defer = true;
+    g.async = true;
+    s.parentNode.insertBefore(g,s);
+    g.onload=function(){
+      window.chatwootSDK.run({
+        websiteToken: 'oX9TRQmmnr4yHGqj6HJtgrnS',
+        baseUrl: BASE_URL
+      })
+    }
+  })(document,"script");
+</script>
+
+</body>
+</html>
