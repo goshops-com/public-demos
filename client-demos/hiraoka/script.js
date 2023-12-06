@@ -2,6 +2,7 @@ async function searchProducts(event) {
     if (event.key === 'Enter') {
         const searchText = event.target.value;
         const results = await window.gsSDK.search(searchText, {});
+        console.log(results);
         displayProducts(results.hits);
     }
 }
