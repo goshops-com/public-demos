@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Search 2</title>
+    <title>Product Search 3</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <script>
         localStorage.clear();
@@ -28,6 +28,35 @@
         </div>
     </div>
 
-    <script src="./script.js"></script>
+    <script>
+        async function searchProducts(event) {
+            console.log('search ')
+            if (event.key === 'Enter') {
+                const searchText = event.target.value;
+                const results = await window.gsSDK.search(searchText, {});
+                console.log(results);
+                displayProducts(results.hits);
+            }
+        }
+
+        function displayProducts(products) {
+            const container = document.getElementById('productsContainer');
+            container.innerHTML = ''; // Clear previous results
+            products.forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'col-md-4 mb-3';
+                productDiv.innerHTML = `
+                    <div class="card">
+                        <img src="${product.image_url}" class="card-img-top" alt="${product.name}">
+                        <div class="card-body">
+                            <h5 class="card-title">${product.name}</h5>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(productDiv);
+            });
+        }
+
+    </script>
 </body>
 </html>
