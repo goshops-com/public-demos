@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Full Screen Background Image</title>
+    <style>
+        /* Ensure the body has no margin and the image covers the entire screen */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .background-image {
+            /* Set the background image and make it cover the entire screen */
+            background-image: url('https://go-shops-public-materials.nyc3.cdn.digitaloceanspaces.com/Screenshot%202024-05-11%20at%2012.01.48%E2%80%AFPM.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-image"></div>
+    <script>
+        (function (d, t) {
+            var BASE_URL = "https://chat-dev.goshops.ai";
+            var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            g.src = BASE_URL + "/packs/js/sdk.js";
+            g.defer = true;
+            g.async = true;
+            s.parentNode.insertBefore(g, s);
+            g.onload = function () {
+                window.chatwootSDK.run({
+                    websiteToken: 'HEgNFWpbDnK5M3FeRmSHiJ55',
+                    baseUrl: BASE_URL
+                });
+            };
+        })(document, "script");
+    </script>
+</body>
+
+</html>
