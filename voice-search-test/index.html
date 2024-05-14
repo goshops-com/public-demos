@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Audio Recorder and Transcriber</title>
+</head>
+
+<body>
+    <h1>Gopersonal - Voice Search test</h1>
+    <button id="recordButton">Start Recording</button>
+    <textarea id="transcript" rows="5" cols="80" placeholder="Browser transcription will appear here..."></textarea>
+    <textarea id="whisperTranscript" rows="5" cols="80"
+        placeholder="Whisper transcription will appear here..."></textarea>
+
+    <script>
+        let recording = false;
+        const recordButton = document.getElementById('recordButton');
+        const transcriptArea = document.getElementById('transcript');
+        const whisperTranscriptArea = document.getElementById('whisperTranscript');
+
+        let mediaRecorder;
+        let audioChunks = [];
+
+        // Initialize SpeechRecognition
+        const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.lang = 'en-US';
+
+        recognition.onresult = function (event) {
+            let interimTranscript = '';
+            let finalTranscript = '';
+
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                const transcript = event.results[i][0].transcript;
+                if (event.results[i].isFinal) {
+                    finalTranscript += transcript + ' ';
+                } else {
+                    interimTranscript += transcript;
+                }
+            }
+
+            transcriptArea.value = finalTranscript + interimTranscript;
+        };
+
+        if (typeof MediaRecorder === "undefined") {
+            alert("MediaRecorder not supported on your browser. Use Firefox or Chrome.");
+        } else {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                    let options = { mimeType: 'audio/webm' }; // Start with a common type
+                    if (MediaRecorder.isTypeSupported(options.mimeType)) {
+                        console.log(options.mimeType + " is supported");
+                        mediaRecorder = new MediaRecorder(stream, options);
+                    } else {
+                        console.log(options.mimeType + " is not supported, using default codec.");
+                        mediaRecorder = new MediaRecorder(stream); // Default settings
+                    }
+
+                    console.log("Using MIME type:", mediaRecorder.mimeType);  // Log the MIME type being used
+
+                    mediaRecorder.ondataavailable = function (event) {
+                        audioChunks.push(event.data);
+                    };
+
+                    mediaRecorder.onstop = function () {
+                        const extension = getFileExtension(mediaRecorder.mimeType);
+                        const audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType });
+                        const audioUrl = URL.createObjectURL(audioBlob);
+                        const audio = new Audio(audioUrl);
+                        audio.play();
+
+                        const formdata = new FormData();
+                        formdata.append("file", audioBlob, "recording" + extension);
+
+                        fetch("http://localhost:3001/item/audio-upload", {
+                            method: "POST",
+                            body: formdata,
+                            redirect: "follow"
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                whisperTranscriptArea.value = data.transcription.text;
+                            })
+                            .catch(error => console.error('Error during fetch:', error));
+                    };
+                })
+                .catch(error => {
+                    console.error('getUserMedia error:', error);
+                    alert('Error accessing the microphone. Check browser permissions.');
+                });
+        }
+
+        recordButton.addEventListener('click', () => {
+            if (!recording) {
+                mediaRecorder.start();
+                recognition.start();  // Start speech recognition
+                console.log('Recording started.');
+                recordButton.textContent = 'Stop Recording';
+                recording = true;
+            } else {
+                mediaRecorder.stop();
+                recognition.stop();  // Stop speech recognition
+                console.log('Stopping recording.');
+                recordButton.textContent = 'Start Recording';
+                recording = false;
+            }
+        });
+
+        function getFileExtension(mimeType) {
+            switch (mimeType) {
+                case 'audio/webm':
+                case 'audio/webm; codecs=opus':
+                    return '.webm';
+                case 'audio/ogg':
+                case 'audio/ogg; codecs=opus':
+                    return '.ogg';
+                case 'audio/mp4':
+                case 'audio/mp4; codecs=mp4a.40.2':
+                    return '.mp4';
+                default:
+                    return '.wav'; // Fallback or you could throw an error if unexpected
+            }
+        }
+    </script>
+</body>
+
+</html>
