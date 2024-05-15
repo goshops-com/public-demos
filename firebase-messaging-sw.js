@@ -14,10 +14,29 @@ function onServiceWorkerActivated(e) {
 
 async function onNotificationReceived(e) {
   const data = JSON.parse(JSON.stringify(e.data.json()));
-  console.log('notification received data');
+  console.log('notification received data', data);
+  
+  const options = {
+    body: data.notification.body,
+    icon: data.notification.image || "",
+    actions: [],
+    data: {
+        url: "",
+        primaryUrl: "",
+        secondaryUrl: "",
+        actions: [],
+        title: data.notification.title,
+        body: data.notification.body,
+        icon: data.notification.image || "",
+    },
+  }
 
+  if(data.banner){
+    options.image = data.banner;
+  }
+  
   try {
-    await self.registration.showNotification(data.notification.title, data.notification);
+    await self.registration.showNotification(data.notification.title, options);
   }catch(ex){
     console.log('error notification received', ex);
   }
@@ -25,6 +44,7 @@ async function onNotificationReceived(e) {
 
 async function onNotificationClicked(i) {
   i.notification.close();
+  console.log("notification clicked", i);
   if (i.notification.data && i.notification.data.url) {
       let url = i.notification.data.url;
       if (i.action === "gopersonal-primary-action") {
