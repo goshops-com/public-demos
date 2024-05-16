@@ -1,0 +1,22 @@
+{
+  "background_color": "#47249a",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Shoppingo",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Shoppingo",
+  "start_url": "/",
+  "theme_color": "#4e40d5",
+  "icons": [
+    {
+      "src": "assets/images/favicon-32x32.webp",
+      "type": "image/webp"
+    },
+    {
+      "src": "/favicon.ico",
+      "type": "image/x-icon"
+    }
+  ],
+  "id": "shoppingo.goshops"
+}
