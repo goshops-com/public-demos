@@ -74,7 +74,7 @@
                         const formdata = new FormData();
                         formdata.append("file", audioBlob, "recording" + extension);
 
-                        fetch("http://localhost:3001/item/audio-upload", {
+                        fetch("https://go-discover-dev.goshops.ai/item/audio-upload", {
                             method: "POST",
                             body: formdata,
                             redirect: "follow"
